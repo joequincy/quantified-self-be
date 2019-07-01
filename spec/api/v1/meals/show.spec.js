@@ -30,25 +30,23 @@ describe('Meals index', () => {
         {name: "Milk", calories: 180}
       ]}, {include: [Food]})
 
-      return get("/api/v1/meals/1").then(response => {
-        expect(response.statusCode).toBe(200)
+      let response = await get("/api/v1/meals/1")
+      expect(response.statusCode).toBe(200)
 
-        let meal = response.body
-        expect(meal).toHaveProperty('name', 'Breakfast')
-        expect(meal.Food).toHaveLength(2)
+      let meal = response.body
+      expect(meal).toHaveProperty('name', 'Breakfast')
+      expect(meal.Food).toHaveLength(2)
 
-        expect(meal.Food[0]).toHaveProperty('name', 'Cereal')
-        expect(meal.Food[0]).toHaveProperty('calories', 240)
-      })
+      expect(meal.Food[0]).toHaveProperty('name', 'Cereal')
+      expect(meal.Food[0]).toHaveProperty('calories', 240)
     })
   })
 
   describe('Failed requests', () => {
-    it('returns a 500 if it is unable to complete the request', () => {
-      return get("/api/v1/meals/1").then(response => {
-        expect(response.statusCode).toBe(500)
-        expect(response.body.error).toBe("Internal Server Error")
-      })
+    it('returns a 500 if it is unable to complete the request', async () => {
+      let response = await get("/api/v1/meals/1")
+      expect(response.statusCode).toBe(500)
+      expect(response.body.error).toBe("Internal Server Error")
     })
 
     it('returns a 404 if it is unable to find the requested meal', async () => {
@@ -59,10 +57,9 @@ describe('Meals index', () => {
         {name: "Banana", calories: 150}
       ]}, {include: [Food]})
 
-      return get("/api/v1/meals/2").then(response => {
-        expect(response.statusCode).toBe(404)
-        expect(response.body.error).toBe("No meal found with the provided ID.")
-      })
+      let response = await get("/api/v1/meals/2")
+      expect(response.statusCode).toBe(404)
+      expect(response.body.error).toBe("No meal found with the provided ID.")
     })
   })
 })

@@ -22,8 +22,8 @@ class SequelizeExecutor {
   }
 }
 
-global.request = require('supertest')
 global.app = require('../app')
-global.get = request(app).get
-global.post = request(app).post
+global.request = require('supertest')(app)
+global.get = request.get
+global.post = request.post
 global.DB = SequelizeExecutor
