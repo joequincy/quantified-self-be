@@ -1,0 +1,23 @@
+{
+  "name": "quantified-self-be",
+  "version": "1.0.0",
+  "description": "A calorie tracker project for Mod4 BE at Turing School of Software and Design",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest --config ./config/jest.config.json --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joequincy/quantified-self-be.git"
+  },
+  "author": "Jon Peterson, Deonte Cooper",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/joequincy/quantified-self-be/issues"
+  },
+  "homepage": "https://github.com/joequincy/quantified-self-be#readme"
+}
