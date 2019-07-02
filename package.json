@@ -3,6 +3,21 @@
   "version": "1.0.0",
   "description": "A calorie tracker project for Mod4 BE at Turing School of Software and Design",
   "main": "app.js",
+  "jest": {
+    "clearMocks": true,
+    "collectCoverage": true,
+    "coverageDirectory": "coverage",
+    "coveragePathIgnorePatterns": [
+      "/node_modules"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/config/jest.config"
+    ],
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules"
+    ]
+  },
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -13,10 +28,14 @@
     "sequelize": "^5.9.0",
     "sequelize-cli": "^5.5.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^24.8.0",
+    "pryjs": "^1.0.3",
+    "supertest": "^4.0.2"
+  },
   "scripts": {
     "start": "node bin/www",
-    "test": "jest --config ./config/jest.config.json --watch"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
