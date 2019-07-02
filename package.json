@@ -3,6 +3,21 @@
   "version": "1.0.0",
   "description": "A calorie tracker project for Mod4 BE at Turing School of Software and Design",
   "main": "app.js",
+  "jest": {
+    "clearMocks": true,
+    "collectCoverage": true,
+    "coverageDirectory": "coverage",
+    "coveragePathIgnorePatterns": [
+      "/node_modules"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/config/jest.config"
+    ],
+    "testEnvironment": "node",
+    "testPathIgnorePatterns": [
+      "/node_modules"
+    ]
+  },
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
