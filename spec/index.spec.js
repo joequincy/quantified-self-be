@@ -29,12 +29,22 @@ describe('api', () => {
         expect(Object.keys(response.body[0])).toContain('calories')
       })
     });
-  })
+  });
   describe('Sad Path', () => {
+    beforeEach((done) => {
+      server = app.listen(4000, (err) => {
+        if (err) return done(err);
+
+        agent = request.agent(server);
+        done();
+      });
+    });
+    afterEach((done) => {
+      return  server && server.close(done);
+    });
     describe('food index page', () => {
       it('loads food items unsuccessfully', async () => {
         const response = await agent.get('/api/v1/foods');
-        // .set('Content-Type', 'application/json')
         expect(response.statusCode).toBe(500)
       });
     });
@@ -57,4 +67,4 @@ describe('index page', () => {
     const response = await agent.get("/");
     expect(response.statusCode).toBe(200);
   });
-})
+});
