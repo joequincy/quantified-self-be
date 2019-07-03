@@ -19,7 +19,7 @@ describe('Meals index', () => {
       DB.wipe()
     })
 
-    it('loads a collection of meals and foods', async () => {
+    it('loads a single meal and its foods', async () => {
       let meal1 = await Meal.create({name: "Breakfast", Food: [
         {name: "Cereal", calories: 240},
         {name: "Banana", calories: 150}
@@ -30,11 +30,10 @@ describe('Meals index', () => {
         {name: "Milk", calories: 180}
       ]}, {include: [Food]})
 
-      return get("/api/v1/meals").then(response => {
+      return get("/api/v1/meals/1").then(response => {
         expect(response.statusCode).toBe(200)
-        expect(response.body).toHaveLength(2)
 
-        let meal = response.body[0]
+        let meal = response.body
         expect(meal).toHaveProperty('name', 'Breakfast')
         expect(meal.Food).toHaveLength(2)
 
@@ -46,9 +45,23 @@ describe('Meals index', () => {
 
   describe('Failed requests', () => {
     it('returns a 500 if it is unable to complete the request', () => {
-      return get("/api/v1/meals").then(response => {
+      return get("/api/v1/meals/1").then(response => {
         expect(response.statusCode).toBe(500)
         expect(response.body.error).toBe("Internal Server Error")
+      })
+    })
+
+    it('returns a 404 if it is unable to find the requested meal', async () => {
+      DB.migrate()
+
+      let meal1 = await Meal.create({name: "Breakfast", Food: [
+        {name: "Cereal", calories: 240},
+        {name: "Banana", calories: 150}
+      ]}, {include: [Food]})
+
+      return get("/api/v1/meals/2").then(response => {
+        expect(response.statusCode).toBe(404)
+        expect(response.body.error).toBe("No meal found with the provided ID.")
       })
     })
   })
