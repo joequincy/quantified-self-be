@@ -1,2 +1,3 @@
 language: node_js
 node_js: lts/*
+script: "jest --runInBand --detectOpenHandles --forceExit"
