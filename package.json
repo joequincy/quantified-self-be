@@ -31,11 +31,12 @@
   "devDependencies": {
     "babel-jest": "^24.8.0",
     "jest": "^24.8.0",
+    "shelljs": "^0.8.3",
     "supertest": "^4.0.2"
   },
   "scripts": {
     "start": "node bin/www",
-    "pretest": "NODE_ENV=test npx sequelize db:create && NODE_ENV=test npx sequelize db:migrate",
+    "pretest": "NODE_ENV=test npx sequelize db:drop && NODE_ENV=test npx sequelize db:create && NODE_ENV=test npx sequelize db:migrate",
     "test": "jest",
     "posttest": "NODE_ENV=test npx sequelize db:drop",
     "debug-test": "node --inspect-brk node_modules/.bin/jest --runInBand"
