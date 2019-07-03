@@ -18,7 +18,7 @@ class SequelizeExecutor {
   }
 
   static seed(seedFileName){
-    shell.exec('npx sequelize db:seed ' + seedFileName, {silent: true})
+    shell.exec('npx sequelize db:seed --seed ' + seedFileName, {silent: true})
   }
 }
 

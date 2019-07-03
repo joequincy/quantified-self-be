@@ -13,7 +13,7 @@ describe('api', () => {
   describe('Food Happy Path', () => {
     beforeEach(() => {
       DB.migrate()
-      DB.seed('food_test_seed')
+      DB.seed('20190702190910-food_test_seed')
     })
 
     afterEach(() => {
