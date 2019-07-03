@@ -10,6 +10,11 @@
     "dialect": "postgres",
     "logging": false
   },
+  "debug-test": {
+    "database": "quantified-self-be_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
   "production": {
     "database": "quantified-self-be_production",
     "host": "127.0.0.1",

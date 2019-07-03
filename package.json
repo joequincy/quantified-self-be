@@ -37,7 +37,7 @@
   "scripts": {
     "start": "node bin/www",
     "test": "jest --runInBand",
-    "debug-test": "node --inspect-brk node_modules/.bin/jest --runInBand"
+    "debug-test": "NODE_ENV=debug-test node --inspect-brk node_modules/.bin/jest --runInBand"
   },
   "repository": {
     "type": "git",
