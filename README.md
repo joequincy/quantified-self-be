@@ -65,7 +65,7 @@ HTTP/1.1 500 Internal Server Error
 
 #### Foods Show
 
-Given the ID of a Food object will return that object if it exists
+Given the ID of a Food object will return that object if it exists.
 
 ##### Request
 
@@ -308,6 +308,81 @@ HTTP/1.1 404 Not Found
 
 ```js
 {"error": "No meal found with the provided ID."}
+```
+
+##### Failed Response - Other
+
+There are no other anticipated failure states. A failure for any other reason is unexpected and will follow the below format.
+
+```http
+HTTP/1.1 500 Internal Server Error
+```
+
+###### Body
+
+```js
+{"error": "Internal Server Error"}
+```
+
+---
+
+#### Add Food to Meal
+
+Given the ID of a meal and the ID of a food, add the food to foods in the meal.
+
+##### Requirements
+
+- Provided meal ID must match a meal that exists in the database.
+- Provided food ID must match a food that exists in the database.
+
+##### Request
+
+```http
+POST /api/v1/meals/:meal_id/foods/:id
+```
+
+##### Successful Response
+
+A message indicating that the food was added to the meal successfully.
+
+```http
+HTTP/1.1 201 Created
+```
+
+###### Body
+
+```js
+{
+  "message": "Successfully added <Food name> to <Meal name>"
+}
+```
+
+##### Failed Response - Unable to find requested meal
+
+This error will be returned when the requested ID does not match a Meal in the database.
+
+```http
+HTTP/1.1 404 Not Found
+```
+
+###### Body
+
+```js
+{"error": "No meal found with the provided ID."}
+```
+
+##### Failed Response - Unable to find requested food
+
+This error will be returned when the requested ID does not match a Food in the database.
+
+```http
+HTTP/1.1 404 Not Found
+```
+
+###### Body
+
+```js
+{"error": "No food found with the provided ID."}
 ```
 
 ##### Failed Response - Other

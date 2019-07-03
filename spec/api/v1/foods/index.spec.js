@@ -19,13 +19,12 @@ describe('api', () => {
       DB.wipe()
     })
     describe('food index page', () => {
-      it('loads food items successfully', () => {
-        return get('/api/v1/foods').then(response => {
-          expect(response.statusCode).toBe(200)
-          expect(response.body.length).toEqual(4)
-          expect(Object.keys(response.body[0])).toContain('name')
-          expect(Object.keys(response.body[0])).toContain('calories')
-        })
+      it('loads food items successfully', async () => {
+        let response = await get('/api/v1/foods')
+        expect(response.statusCode).toBe(200)
+        expect(response.body.length).toEqual(4)
+        expect(Object.keys(response.body[0])).toContain('name')
+        expect(Object.keys(response.body[0])).toContain('calories')
       })
     });
   });
