@@ -5,6 +5,7 @@ var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
 
 var indexRouter = require('./routes/index');
+var foodsRouter = require('./routes/api/v1/foods');
 
 var app = express();
 
@@ -21,5 +22,6 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/api/v1/foods', foodsRouter);
 
 module.exports = app;
