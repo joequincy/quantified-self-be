@@ -2,7 +2,23 @@ const Meal = require('../../../../models').Meal
 const Food = require('../../../../models').Food
 
 describe('Meals index', () => {
-  beforeAll(async () => {
+  beforeAll(() => {
+    DB.create()
+  });
+
+  beforeEach(() => {
+    DB.migrate()
+  })
+
+  afterEach(() => {
+    DB.wipe()
+  })
+
+  afterAll(() => {
+    DB.drop()
+  })
+
+  it('loads a collection of meals and foods', async () => {
     let meal1 = await Meal.create({name: "Breakfast", Food: [
       {name: "Cereal", calories: 240},
       {name: "Banana", calories: 150}
@@ -12,9 +28,7 @@ describe('Meals index', () => {
       {name: "Steak", calories: 800},
       {name: "Milk", calories: 180}
     ]}, {include: [Food]})
-  });
 
-  it('loads a collection of meals and foods', () => {
     return get("/api/v1/meals").then(response => {
       expect(response.statusCode).toBe(200)
       expect(response.body).toHaveLength(2)
