@@ -19,11 +19,16 @@ Returns all foods currently in the database
 
 ##### Request
 
-_request details TBD_
+```http
+GET /api/v1/foods
+```
 
 ##### Successful Response
 
-_additional details TBD_
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+```
 
 ###### Body
 ```json
@@ -43,4 +48,7 @@ _additional details TBD_
 
 ##### Failed Response
 
-_additional details TBD_
+```http
+HTTP/1.1 500 Internal Server Error
+Content-Type: application/json
+```
