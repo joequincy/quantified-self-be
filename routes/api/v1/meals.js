@@ -17,7 +17,7 @@ meals.get('/', (req, res, next) => {
   }).then(meals => {
     res.status(200).send(meals)
   }).catch(error => {
-    res.status(500).send(error)
+    res.status(500).send({error: "Internal Server Error"})
   })
 })
 
