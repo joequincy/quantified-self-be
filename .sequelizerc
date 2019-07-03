@@ -1,5 +1,10 @@
 const path = require('path');
-
-module.exports = {
+let output = {
   'seeders-path': path.resolve('seeders', process.env.NODE_ENV),
 }
+
+if(process.env.CI){
+  output['config-path'] = path.resolve('config', 'travis.jest.config.json')
+}
+
+module.exports = output
