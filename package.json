@@ -34,6 +34,7 @@
   },
   "scripts": {
     "start": "node bin/www",
+    "pretest": "NODE_ENV=test npx sequelize db:migrate",
     "test": "jest",
     "debug-test": "node --inspect-brk node_modules/.bin/jest --runInBand"
   },
