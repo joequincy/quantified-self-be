@@ -8,6 +8,7 @@ A calorie tracker using JavaScript, built on NodeJS with the Express framework.
 
 ### Endpoints
 [Foods Index](#foods-index)
+[Foods Show](#foods-show)
 [Meals Index](#meals-index)
 [Meals Show](#meals-show)
 
@@ -29,7 +30,6 @@ GET /api/v1/foods
 
 ```http
 HTTP/1.1 200 OK
-Content-Type: application/json
 ```
 
 ###### Body
@@ -52,7 +52,66 @@ Content-Type: application/json
 
 ```http
 HTTP/1.1 500 Internal Server Error
-Content-Type: application/json
+```
+
+###### Body
+
+```js
+{"error": "Internal Server Error"}
+```
+
+---
+
+#### Foods Show
+
+Given the ID of a Food object will return that object if it exists.
+
+##### Request
+
+```http
+GET /api/v1/foods/:id
+```
+
+##### Successful Response
+
+```http
+HTTP/1.1 200 OK
+```
+
+###### Body
+
+```json
+  {
+    "id": 1,
+    "name": "Banana",
+    "calories": 150
+  }
+```
+
+##### Failed Response
+
+```http
+HTTP/1.1 404 Not Found
+```
+
+###### Body
+
+```js
+{"error": "No food found with the provided ID."}
+```
+
+##### Failed Response - Other
+
+There are no other anticipated failure states. A failure for any other reason is unexpected and will follow the below format.
+
+```http
+HTTP/1.1 500 Internal Server Error
+```
+
+###### Body
+
+```js
+{"error": "Internal Server Error"}
 ```
 
 ---

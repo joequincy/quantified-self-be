@@ -1,5 +1,4 @@
-var shell = require('shelljs');
-var request = require("supertest");
+const shell = require('shelljs');
 
 describe('api', () => {
   beforeAll(() => {

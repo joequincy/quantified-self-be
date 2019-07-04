@@ -12,8 +12,31 @@ router.get('/', function(req, res, next) {
     })
     .catch( error => {
       res.setHeader('Content-Type', 'application/json');
-      res.status(500).send(JSON.stringify({error}))
+      res.status(500).send(JSON.stringify({error: "Internal Server Error"}))
     });
 });
+
+router.get('/:id', function(req, res, next) {
+  // debugger;
+  Food.findAll({
+    attributes: ['id', 'name', 'calories'],
+    where: {
+      id: req.params.id
+    }
+  })
+    .then(food => {
+      if(food.length !== 0){
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).send(JSON.stringify(food));
+      } else {
+        res.setHeader('Content-Type', 'application/json');
+        res.status(404).send(JSON.stringify({error: 'No food found with provided ID.'}));
+      }
+    })
+    .catch(error => {
+      res.setHeader('Content-Type', 'application/json')
+      res.status(500).send(JSON.stringify({error: "Internal Server Error"}))
+    })
+})
 
 module.exports = router;
