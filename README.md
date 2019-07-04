@@ -64,7 +64,7 @@ HTTP/1.1 500 Internal Server Error
 
 #### Foods Show
 
-Given the ID of a Food object will return that object if it exists
+Given the ID of a Food object will return that object if it exists.
 
 ##### Request
 
@@ -97,7 +97,7 @@ HTTP/1.1 404 Not Found
 ###### Body
 
 ```js
-{"error": "No meal found with the provided ID."}
+{"error": "No food found with the provided ID."}
 ```
 
 ##### Failed Response - Other
