@@ -1,8 +1,23 @@
-var shell = require('shelljs');
-var request = require("supertest");
+const shell = require('shelljs');
 
 describe('api', () => {
+  beforeAll(() => {
+    DB.create()
+  })
+
+  afterAll(() => {
+    DB.drop()
+  })
+
   describe('Food Happy Path', () => {
+    beforeEach(() => {
+      DB.migrate()
+      DB.seed('20190702190910-food_index_seed')
+    })
+
+    afterEach(() => {
+      DB.wipe()
+    })
     describe('food index page', () => {
       it('loads food items successfully', () => {
         return get('/api/v1/foods').then(response => {
@@ -16,9 +31,6 @@ describe('api', () => {
   });
 
   describe('Food Sad Path', () => {
-    beforeEach(() => {
-      shell.exec('npx sequelize db:migrate:undo:all')
-    });
     describe('food index page', () => {
       it('loads food items unsuccessfully', () => {
         return get('/api/v1/foods').then(response => {
