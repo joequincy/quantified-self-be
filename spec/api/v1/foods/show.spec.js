@@ -30,7 +30,7 @@ describe('api', () => {
   });
 
   describe('Food Sad Path', () => {
-    describe('food show page', () => {
+    describe('404 Error', () => {
       beforeEach(() => {
         DB.migrate()
         DB.seed('20190702190910-food_index_seed')
@@ -42,15 +42,16 @@ describe('api', () => {
       it('loads a food item unsuccessfully', () => {
         return get('/api/v1/foods/6').then(response => {
           expect(response.statusCode).toBe(404)
-          expect(response.body.error).toContain('No food found with provided ID.')
+          expect(response.body.error).toBe('No food found with provided ID.')
         });
       });
     });
 
-    describe('food show page', () => {
-      it('loads food item unsuccessfully server error', () => {
+    describe('500 Error', () => {
+      it('loads food item unsuccessfully if server error', () => {
         return get('/api/v1/foods/1').then(response => {
           expect(response.statusCode).toBe(500)
+          expect(response.body.error).toBe("Internal Server Error")
         })
       });
     });
