@@ -57,7 +57,7 @@ router.post('/', function(req, res, next) {
       res.status(500).send(JSON.stringify({error: "Internal Server Error"}));
     })
   } else {
-    res.status(400).send(JSON.stringify({error: 'Bad Request' }));
+    res.status(400).send(JSON.stringify({error: 'Invalid request. Please confirm request body matches API specification.' }));
   }
 });
 
