@@ -19,32 +19,22 @@ describe('Meals index', () => {
       DB.wipe()
     })
 
-    it('loads a single meal and its foods', async () => {
+    it('adds a food to a meal', async () => {
       let meal1 = await Meal.create({name: "Breakfast", Food: [
-        {name: "Cereal", calories: 240},
-        {name: "Banana", calories: 150}
+        {name: "Cereal", calories: 240}
       ]}, {include: [Food]})
+      let food2 = await Food.create({name: "Banana", calories: 150})
 
-      let meal2 = await Meal.create({name: "Dinner", Food: [
-        {name: "Steak", calories: 800},
-        {name: "Milk", calories: 180}
-      ]}, {include: [Food]})
+      let response = await post("/api/v1/meals/1/foods/2")
+      expect(response.statusCode).toBe(201)
 
-      let response = await get("/api/v1/meals/1")
-      expect(response.statusCode).toBe(200)
-
-      let meal = response.body
-      expect(meal).toHaveProperty('name', 'Breakfast')
-      expect(meal.Food).toHaveLength(2)
-
-      expect(meal.Food[0]).toHaveProperty('name', 'Cereal')
-      expect(meal.Food[0]).toHaveProperty('calories', 240)
+      expect(response.body.message).toBe("Successfully added Banana to Breakfast")
     })
   })
 
   describe('Failed requests', () => {
     it('returns a 500 if it is unable to complete the request', async () => {
-      let response = await get("/api/v1/meals/1")
+      let response = await post("/api/v1/meals/1/foods/1")
       expect(response.statusCode).toBe(500)
       expect(response.body.error).toBe("Internal Server Error")
     })
@@ -57,9 +47,22 @@ describe('Meals index', () => {
         {name: "Banana", calories: 150}
       ]}, {include: [Food]})
 
-      let response = await get("/api/v1/meals/2")
+      let response = await post("/api/v1/meals/2/foods/1")
       expect(response.statusCode).toBe(404)
       expect(response.body.error).toBe("No meal found with the provided ID.")
+    })
+
+    it('returns a 404 if it is unable to find the requested food', async () => {
+      DB.migrate()
+
+      let meal1 = await Meal.create({name: "Breakfast", Food: [
+        {name: "Cereal", calories: 240},
+        {name: "Banana", calories: 150}
+      ]}, {include: [Food]})
+
+      let response = await post("/api/v1/meals/1/foods/3")
+      expect(response.statusCode).toBe(404)
+      expect(response.body.error).toBe("No food found with the provided ID.")
     })
   })
 })

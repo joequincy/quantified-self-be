@@ -30,26 +30,24 @@ describe('Meals index', () => {
         {name: "Milk", calories: 180}
       ]}, {include: [Food]})
 
-      return get("/api/v1/meals").then(response => {
-        expect(response.statusCode).toBe(200)
-        expect(response.body).toHaveLength(2)
+      let response = await get("/api/v1/meals")
+      expect(response.statusCode).toBe(200)
+      expect(response.body).toHaveLength(2)
 
-        let meal = response.body[0]
-        expect(meal).toHaveProperty('name', 'Breakfast')
-        expect(meal.Food).toHaveLength(2)
+      let meal = response.body[0]
+      expect(meal).toHaveProperty('name', 'Breakfast')
+      expect(meal.Food).toHaveLength(2)
 
-        expect(meal.Food[0]).toHaveProperty('name', 'Cereal')
-        expect(meal.Food[0]).toHaveProperty('calories', 240)
-      })
+      expect(meal.Food[0]).toHaveProperty('name', 'Cereal')
+      expect(meal.Food[0]).toHaveProperty('calories', 240)
     })
   })
 
   describe('Failed requests', () => {
-    it('returns a 500 if it is unable to complete the request', () => {
-      return get("/api/v1/meals").then(response => {
-        expect(response.statusCode).toBe(500)
-        expect(response.body.error).toBe("Internal Server Error")
-      })
+    it('returns a 500 if it is unable to complete the request', async () => {
+      let response = await get("/api/v1/meals")
+      expect(response.statusCode).toBe(500)
+      expect(response.body.error).toBe("Internal Server Error")
     })
   })
 })
