@@ -9,6 +9,7 @@ A calorie tracker using JavaScript, built on NodeJS with the Express framework.
 ### Endpoints
 [Foods Index](#foods-index)
 [Foods Show](#foods-show)
+[Foods Create](#foods-create)
 [Meals Index](#meals-index)
 [Meals Show](#meals-show)
 
@@ -97,7 +98,70 @@ HTTP/1.1 404 Not Found
 ###### Body
 
 ```js
-{"error": "No meal found with the provided ID."}
+{"error": "No food found with the provided ID."}
+```
+
+##### Failed Response - Other
+
+There are no other anticipated failure states. A failure for any other reason is unexpected and will follow the below format.
+
+```http
+HTTP/1.1 500 Internal Server Error
+```
+
+###### Body
+
+```js
+{"error": "Internal Server Error"}
+```
+
+---
+
+#### Foods Create
+
+Allows creating a new food with both required parameters `name` and `calories`.
+
+##### Request
+
+```http
+POST /api/v1/foods
+```
+
+```json
+{ "food":
+  {
+    "name": "Strawberry",
+    "calories": 6
+  }
+}
+```
+
+##### Successful Response
+
+```http
+HTTP/1.1 201 Created
+```
+
+###### Body
+
+```json
+  {
+    "id": 1,
+    "name": "Strawberry",
+    "calories": 6
+  }
+```
+
+##### Failed Response
+
+```http
+HTTP/1.1 400 Bad Request
+```
+
+###### Body
+
+```js
+{"error": "Bad Request" }
 ```
 
 ##### Failed Response - Other
