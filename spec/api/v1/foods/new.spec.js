@@ -56,7 +56,7 @@ describe('api', () => {
           })
         .then(response => {
           expect(response.statusCode).toBe(400)
-          expect(response.body.error).toBe('Bad Request');
+          expect(response.body.error).toBe('Invalid request. Please confirm request body matches API specification.');
         });
       });
 
@@ -70,14 +70,14 @@ describe('api', () => {
           })
         .then(response => {
           expect(response.statusCode).toBe(400)
-          expect(response.body.error).toBe('Bad Request');
+          expect(response.body.error).toBe('Invalid request. Please confirm request body matches API specification.');
         });
       });
 
       it('loads a new food item unsuccessfully if food is undefined', () => {
         return post('/api/v1/foods').then(response => {
           expect(response.statusCode).toBe(400)
-          expect(response.body.error).toBe('Bad Request');
+          expect(response.body.error).toBe('Invalid request. Please confirm request body matches API specification.');
         });
       });
     });
