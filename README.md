@@ -161,7 +161,7 @@ HTTP/1.1 400 Bad Request
 ###### Body
 
 ```js
-{"error": "Bad Request" }
+{"error": "Invalid request. Please confirm request body matches API specification." }
 ```
 
 ##### Failed Response - Other
