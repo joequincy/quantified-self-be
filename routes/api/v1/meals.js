@@ -51,10 +51,14 @@ meals.post('/:mealId/foods/:foodId', (req, res, next) => {
         if(food){
           meal.addFood(food).then(result => {
             res.status(201).send({message: `Successfully added ${food.name} to ${meal.name}`})
+          }).catch(error => {
+            res.status(500).send({error: "Internal Server Error"})
           })
         } else {
           res.status(404).send({error: "No food found with the provided ID."})
         }
+      }).catch(error => {
+        res.status(500).send({error: "Internal Server Error"})
       })
     } else {
       res.status(404).send({error: "No meal found with the provided ID."})
