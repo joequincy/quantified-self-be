@@ -1,7 +1,7 @@
 const Meal = require('../../../../models').Meal
 const Food = require('../../../../models').Food
 
-describe('Meals index', () => {
+describe('Meals add food endpoint', () => {
   beforeAll(() => {
     DB.create()
   });
@@ -29,6 +29,18 @@ describe('Meals index', () => {
       expect(response.statusCode).toBe(201)
 
       expect(response.body.message).toBe("Successfully added Banana to Breakfast")
+
+      let affectedMeal = await Meal.findByPk(1, {
+        include: [{
+          model: Food,
+          attributes: ["id", "name", "calories"],
+          through: {
+            attributes: []
+          }
+        }]
+      })
+      expect(affectedMeal.Food).toHaveLength(2)
+      expect(affectedMeal.Food[1].name).toBe("Banana")
     })
   })
 
