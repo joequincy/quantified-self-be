@@ -30,10 +30,11 @@ describe('api', () => {
   });
 
   describe('Food Sad Path', () => {
-    describe('food index page', () => {
-      it('loads food items unsuccessfully', async () => {
-        let response = await get('/api/v1/foods')
-        expect(response.statusCode).toBe(500)
+    describe('500 Error', () => {
+      it('loads food items unsuccessfully if server error', () => {
+        return get('/api/v1/foods').then(response => {
+          expect(response.statusCode).toBe(500)
+        })
       });
     });
   });
