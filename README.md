@@ -12,6 +12,8 @@ A calorie tracker using JavaScript, built on NodeJS with the Express framework.
 [Foods Create](#foods-create)
 [Meals Index](#meals-index)
 [Meals Show](#meals-show)
+[Add Food to Meal](#add-food-to-meal)
+[Remove Food from Meal](#remove-food-from-meal)
 
 ---
 
@@ -355,6 +357,73 @@ HTTP/1.1 201 Created
 {
   "message": "Successfully added <Food name> to <Meal name>"
 }
+```
+
+##### Failed Response - Unable to find requested meal
+
+This error will be returned when the requested ID does not match a Meal in the database.
+
+```http
+HTTP/1.1 404 Not Found
+```
+
+###### Body
+
+```js
+{"error": "No meal found with the provided ID."}
+```
+
+##### Failed Response - Unable to find requested food
+
+This error will be returned when the requested ID does not match a Food in the database.
+
+```http
+HTTP/1.1 404 Not Found
+```
+
+###### Body
+
+```js
+{"error": "No food found with the provided ID."}
+```
+
+##### Failed Response - Other
+
+There are no other anticipated failure states. A failure for any other reason is unexpected and will follow the below format.
+
+```http
+HTTP/1.1 500 Internal Server Error
+```
+
+###### Body
+
+```js
+{"error": "Internal Server Error"}
+```
+
+---
+
+#### Remove Food from Meal
+
+Given the ID of a meal and the ID of a food, remove the food from the meal.
+
+##### Requirements
+
+- Provided meal ID must match a meal that exists in the database.
+- Provided food ID must match a food that exists in the database.
+
+##### Request
+
+```http
+DELETE /api/v1/meals/:meal_id/foods/:id
+```
+
+##### Successful Response
+
+A message indicating that the food was added to the meal successfully.
+
+```http
+HTTP/1.1 204 No Content
 ```
 
 ##### Failed Response - Unable to find requested meal
