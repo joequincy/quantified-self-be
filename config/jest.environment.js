@@ -26,4 +26,5 @@ global.app = require('../app')
 global.request = require('supertest')(app)
 global.get = request.get
 global.post = request.post
+global.del = request.del
 global.DB = SequelizeExecutor
