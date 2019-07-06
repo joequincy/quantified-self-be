@@ -93,4 +93,34 @@ meals.delete('/:mealId/foods/:foodId', (req, res, next) => {
   })
 })
 
+meals.post('/', (req, res, next) => {
+  res.setHeader("Content-Type", "application/json")
+  if(isMeal(req.body)){
+    Meal.create({name: req.body.meal.name}).then(meal => {
+      res.status(201).send(meal)
+    }).catch(error => {
+      res.status(500).send({error: "Internal Server Error"})
+    })
+  } else {
+    res.status(400).send({error: "Invalid request. Please confirm request body matches API specification."})
+  }
+})
+
 module.exports = meals
+
+
+function isMeal(obj){
+  if(obj.hasOwnProperty("meal")){
+    for(var key in obj.meal){
+      if(key != "name"){
+        return false
+      }
+    }
+    if(!obj.meal.hasOwnProperty("name")){
+      return false
+    }
+  } else {
+    return false
+  }
+  return true
+}
