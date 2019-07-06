@@ -9,15 +9,14 @@ This project is a Mod 4 assignment from the Turing School of Software and Design
 - Create a single-page web for the front-end which will interact with the server via the API without page changes or reloads.
 
 ### Endpoints
-[Foods Index](#foods-index)
-[Foods Show](#foods-show)
-[Foods Create](#foods-create)
-[Foods Update](#foods-update)
-[Meals Index](#meals-index)
-[Meals Show](#meals-show)
-[Meals Create](#meals-create)
-[Add Food to Meal](#add-food-to-meal)
-[Remove Food from Meal](#remove-food-from-meal)
+|Foods|Meals|
+|-|-|
+|[Index](#foods-index)|[Index](#meals-index)|
+|[Show](#foods-show)|[Show](#meals-show)|
+|[Create](#foods-create)|[Create](#meals-create)|
+|[Update](#foods-update)||
+||[Add Food](#add-food-to-meal)|
+||[Remove Food](#remove-food-from-meal)|
 
 ---
 
