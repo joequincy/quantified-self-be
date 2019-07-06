@@ -46,15 +46,36 @@ router.post('/', function(req, res, next) {
       calories: req.body.food.calories
     })
     .then(food => {
-      foodItem = {
-        id: food.id,
-        name: food.name,
-        calories: food.calories
-      }
-      res.status(201).send(JSON.stringify(foodItem));
+      res.status(201).send(JSON.stringify(foodItem(food)));
     })
     .catch(error => {
       res.status(500).send(JSON.stringify({error: "Internal Server Error"}));
+    })
+  } else {
+    res.status(400).send(JSON.stringify({error: 'Invalid request. Please confirm request body matches API specification.' }));
+  }
+});
+
+// PATCH New Food
+router.patch('/:id', function(req, res,next) {
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Accept-Patch', 'application/json');
+  if(validFood(req.body.food)) {
+    Food.update({
+      name: req.body.food.name,
+      calories: req.body.food.calories,
+    },
+    {
+      returning: true,
+      where: {
+        id: req.params.id
+      }
+    })
+    .then(food => {
+      res.status(200).send(JSON.stringify(foodItem(food[1][0])))
+    })
+    .catch( error => {
+      res.status(500).send({error: 'Internal Server Error'})
     })
   } else {
     res.status(400).send(JSON.stringify({error: 'Invalid request. Please confirm request body matches API specification.' }));
@@ -71,6 +92,15 @@ function validFood(params) {
     }
   } else {
     return false
+  }
+}
+
+// Food Return Setup
+function foodItem(food) {
+  return foodItem = {
+    id: food.id,
+    name: food.name,
+    calories: food.calories
   }
 }
 
