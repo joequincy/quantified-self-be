@@ -2,6 +2,8 @@
 
 A calorie tracker using JavaScript, built on NodeJS with the Express framework.
 
+This project is a Mod 4 assignment from the Turing School of Software and Design. [Assignment details are available](https://github.com/turingschool/backend-curriculum-site/blob/66a39813572f453700ab944948ecf698b0b75d42/module4/projects/quantified_self/qs_server_side.md) in the [@turingschool](https://github.com/turingschool) curriculum repository.
+
 ### Learning Goals
 - Create an Express API given specified endpoints and response formats.
 - Create a single-page web for the front-end which will interact with the server via the API without page changes or reloads.
@@ -13,6 +15,7 @@ A calorie tracker using JavaScript, built on NodeJS with the Express framework.
 [Foods Update](#foods-update)
 [Meals Index](#meals-index)
 [Meals Show](#meals-show)
+[Meals Create](#meals-create)
 [Add Food to Meal](#add-food-to-meal)
 [Remove Food from Meal](#remove-food-from-meal)
 
@@ -374,6 +377,67 @@ HTTP/1.1 404 Not Found
 
 ```js
 {"error": "No meal found with the provided ID."}
+```
+
+##### Failed Response - Other
+
+There are no other anticipated failure states. A failure for any other reason is unexpected and will follow the below format.
+
+```http
+HTTP/1.1 500 Internal Server Error
+```
+
+###### Body
+
+```js
+{"error": "Internal Server Error"}
+```
+
+---
+
+#### Meals Create
+
+Allows creating a new meal with required parameter `name`.
+
+##### Request
+
+```http
+POST /api/v1/meals
+```
+
+```json
+{ "meal":
+  {
+    "name": "Breakfast"
+  }
+}
+```
+
+##### Successful Response
+
+```http
+HTTP/1.1 201 Created
+```
+
+###### Body
+
+```json
+  {
+    "id": 1,
+    "name": "Breakfast"
+  }
+```
+
+##### Failed Response
+
+```http
+HTTP/1.1 400 Bad Request
+```
+
+###### Body
+
+```js
+{"error": "Invalid request. Please confirm request body matches API specification." }
 ```
 
 ##### Failed Response - Other
