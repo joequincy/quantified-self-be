@@ -11,7 +11,7 @@ describe('Meals index', () => {
   })
 
   beforeEach(() => {
-    console.log('meals/index.spec.js', process.pid)
+    process.stdout.write('PID foods/index.spec.js: ' + process.pid + '\n')
   })
 
   describe('Successful request', () => {

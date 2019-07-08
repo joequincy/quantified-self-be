@@ -10,7 +10,7 @@ describe('api', () => {
   })
 
   beforeEach(() => {
-    console.log('foods/index.spec.js', process.pid)
+    process.stdout.write('PID foods/index.spec.js: ' + process.pid + '\n')
   })
 
   describe('Food Happy Path', () => {
