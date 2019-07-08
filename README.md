@@ -15,6 +15,7 @@ This project is a Mod 4 assignment from the Turing School of Software and Design
 |[Show](#foods-show)|[Show](#meals-show)|
 |[Create](#foods-create)|[Create](#meals-create)|
 |[Update](#foods-update)||
+|[Delete](#foods-delete)||
 ||[Add Food](#add-food-to-meal)|
 ||[Remove Food](#remove-food-from-meal)|
 
@@ -230,6 +231,50 @@ HTTP/1.1 400 Bad Request
 
 ```js
 {"error": "Invalid request. Please confirm request body matches API specification." }
+```
+
+##### Failed Response - Other
+
+There are no other anticipated failure states. A failure for any other reason is unexpected and will follow the below format.
+
+```http
+HTTP/1.1 500 Internal Server Error
+```
+
+###### Body
+
+```js
+{"error": "Internal Server Error"}
+```
+
+---
+
+#### Foods Delete
+
+Allows a food with both required parameters `name` and `calories` to be updated.
+
+##### Request
+
+```http
+PATCH /api/v1/foods/1
+```
+
+##### Successful Response
+
+```http
+HTTP/1.1 204 No Content
+```
+
+##### Failed Response
+
+```http
+HTTP/1.1 404 Not Found
+```
+
+###### Body
+
+```js
+{"error": "No food found with provided ID." }
 ```
 
 ##### Failed Response - Other
