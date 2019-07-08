@@ -47,18 +47,14 @@ meals.post('/:mealId/foods/:foodId', (req, res, next) => {
   res.setHeader("Content-Type", "application/json")
   Meal.findByPk(req.params.mealId).then(meal => {
     if(meal){
-      Food.findByPk(req.params.foodId).then(food => {
+      return Food.findByPk(req.params.foodId).then(food => {
         if(food){
-          meal.addFood(food).then(result => {
+          return meal.addFood(food).then(result => {
             res.status(201).send({message: `Successfully added ${food.name} to ${meal.name}`})
-          }).catch(error => {
-            res.status(500).send({error: "Internal Server Error"})
           })
         } else {
           res.status(404).send({error: "No food found with the provided ID."})
         }
-      }).catch(error => {
-        res.status(500).send({error: "Internal Server Error"})
       })
     } else {
       res.status(404).send({error: "No meal found with the provided ID."})
@@ -72,18 +68,14 @@ meals.delete('/:mealId/foods/:foodId', (req, res, next) => {
   res.setHeader("Content-Type", "application/json")
   Meal.findByPk(req.params.mealId).then(meal => {
     if(meal){
-      Food.findByPk(req.params.foodId).then(food => {
+      return Food.findByPk(req.params.foodId).then(food => {
         if(food){
-          meal.removeFood(food).then(result => {
+          return meal.removeFood(food).then(result => {
             res.status(204).send()
-          }).catch(error => {
-            res.status(500).send({error: "Internal Server Error"})
           })
         } else {
           res.status(404).send({error: "No food found with the provided ID."})
         }
-      }).catch(error => {
-        res.status(500).send({error: "Internal Server Error"})
       })
     } else {
       res.status(404).send({error: "No meal found with the provided ID."})
@@ -93,4 +85,34 @@ meals.delete('/:mealId/foods/:foodId', (req, res, next) => {
   })
 })
 
+meals.post('/', (req, res, next) => {
+  res.setHeader("Content-Type", "application/json")
+  if(isMeal(req.body)){
+    Meal.create({name: req.body.meal.name}).then(meal => {
+      res.status(201).send(meal)
+    }).catch(error => {
+      res.status(500).send({error: "Internal Server Error"})
+    })
+  } else {
+    res.status(400).send({error: "Invalid request. Please confirm request body matches API specification."})
+  }
+})
+
 module.exports = meals
+
+
+function isMeal(obj){
+  if(obj.hasOwnProperty("meal")){
+    for(var key in obj.meal){
+      if(key != "name"){
+        return false
+      }
+    }
+    if(!obj.meal.hasOwnProperty("name")){
+      return false
+    }
+  } else {
+    return false
+  }
+  return true
+}
