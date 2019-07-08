@@ -3,6 +3,7 @@ var models = require('../../../models');
 const Meal = models.Meal
 const Food = models.Food
 
+/* Meals Index */
 meals.get('/', (req, res, next) => {
   res.setHeader("Content-Type", "application/json")
   Meal.findAll({
@@ -21,6 +22,7 @@ meals.get('/', (req, res, next) => {
   })
 })
 
+/* Meal Show */
 meals.get('/:id', (req, res, next) => {
   res.setHeader("Content-Type", "application/json")
   Meal.findByPk(req.params.id, {
@@ -43,6 +45,7 @@ meals.get('/:id', (req, res, next) => {
   })
 })
 
+/* Add Food to Meal */
 meals.post('/:mealId/foods/:foodId', (req, res, next) => {
   res.setHeader("Content-Type", "application/json")
   Meal.findByPk(req.params.mealId).then(meal => {
@@ -64,6 +67,7 @@ meals.post('/:mealId/foods/:foodId', (req, res, next) => {
   })
 })
 
+/* Remove Food from Meal */
 meals.delete('/:mealId/foods/:foodId', (req, res, next) => {
   res.setHeader("Content-Type", "application/json")
   Meal.findByPk(req.params.mealId).then(meal => {
@@ -85,6 +89,7 @@ meals.delete('/:mealId/foods/:foodId', (req, res, next) => {
   })
 })
 
+/* Create Meal */
 meals.post('/', (req, res, next) => {
   res.setHeader("Content-Type", "application/json")
   if(isMeal(req.body)){
@@ -96,6 +101,22 @@ meals.post('/', (req, res, next) => {
   } else {
     res.status(400).send({error: "Invalid request. Please confirm request body matches API specification."})
   }
+})
+
+/* Delete Meal */
+meals.delete('/:id', (req, res, next) => {
+  res.setHeader("Content-Type", "application/json")
+  Meal.findByPk(req.params.id).then(meal => {
+    if(meal){
+      return meal.destroy().then(result => {
+        res.status(204).send()
+      })
+    } else {
+      res.status(404).send({error: "No meal found with the provided ID."})
+    }
+  }).catch(error => {
+    res.status(500).send({error: "Internal Server Error"})
+  })
 })
 
 module.exports = meals
