@@ -22,7 +22,7 @@
   "scripts": {
     "start": "node bin/www",
     "test": "jest --runInBand --config ./config/jest.config.js",
-    "travis-test": "jest --config ./config/jest.config.js",
+    "travis-test": "jest --config ./config/jest.config.js --no-cache",
     "debug-test": "NODE_ENV=debug-test node --inspect-brk node_modules/.bin/jest --runInBand --config ./config/jest.config.js"
   },
   "repository": {
