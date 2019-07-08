@@ -1,23 +1,32 @@
-# Quantified Self
+# Quantified Self [![Build Status](https://travis-ci.com/joequincy/quantified-self-be.svg?branch=dev)](https://travis-ci.com/joequincy/quantified-self-be)
 
-A calorie tracker using JavaScript, built on NodeJS with the Express framework.
+A calorie tracker using JavaScript, built on NodeJS with the [Express](https://expressjs.com/) framework. [Sequelize](http://docs.sequelizejs.com/) is used for an ORM.
 
 This project is a Mod 4 assignment from the Turing School of Software and Design. [Assignment details are available](https://github.com/turingschool/backend-curriculum-site/blob/66a39813572f453700ab944948ecf698b0b75d42/module4/projects/quantified_self/qs_server_side.md) in the [@turingschool](https://github.com/turingschool) curriculum repository.
+
+### Setup
+From the project root, run:
+- `npm install`
+- `npx sequelize db:create`
+- `npx sequelize db:migrate`
+- `npx sequelize db:seed`
+
+To start the API server, run `npm start`, then access endpoints as described below. Default port on `localhost` is `3000`.
 
 ### Learning Goals
 - Create an Express API given specified endpoints and response formats.
 - Create a single-page web for the front-end which will interact with the server via the API without page changes or reloads.
 
 ### Endpoints
-|Foods|Meals|
-|-|-|
-|[Index](#foods-index)|[Index](#meals-index)|
-|[Show](#foods-show)|[Show](#meals-show)|
-|[Create](#foods-create)|[Create](#meals-create)|
-|[Update](#foods-update)||
-|[Delete](#foods-delete)|[Delete](#meals-delete)|
-|[Add Food](#add-food-to-meal)|
-|[Remove Food](#remove-food-from-meal)|
+|         Foods         |         Meals                       |
+|-----------------------|-------------------------------------|
+|[Index](#foods-index)  |[Index](#meals-index)                |
+|[Show](#foods-show)    |[Show](#meals-show)                  |
+|[Create](#foods-create)|[Create](#meals-create)              |
+|[Update](#foods-update)|-_no update endpoint_-               |
+|[Delete](#foods-delete)|[Delete](#meals-delete)              |
+|                       |[Add Food](#add-food-to-meal)        |
+|                       |[Remove Food](#remove-food-from-meal)|
 
 ---
 
@@ -55,7 +64,9 @@ HTTP/1.1 200 OK
 ]
 ```
 
-##### Failed Response
+<details><summary>Failed Responses</summary>
+
+##### Other
 
 ```http
 HTTP/1.1 500 Internal Server Error
@@ -66,6 +77,8 @@ HTTP/1.1 500 Internal Server Error
 ```js
 {"error": "Internal Server Error"}
 ```
+
+</details>
 
 ---
 
@@ -95,7 +108,9 @@ HTTP/1.1 200 OK
   }
 ```
 
-##### Failed Response
+<details><summary>Failed Responses</summary>
+
+##### Unable to find requested food
 
 ```http
 HTTP/1.1 404 Not Found
@@ -107,7 +122,7 @@ HTTP/1.1 404 Not Found
 {"error": "No food found with the provided ID."}
 ```
 
-##### Failed Response - Other
+##### Other
 
 There are no other anticipated failure states. A failure for any other reason is unexpected and will follow the below format.
 
@@ -120,6 +135,8 @@ HTTP/1.1 500 Internal Server Error
 ```js
 {"error": "Internal Server Error"}
 ```
+
+</details>
 
 ---
 
@@ -158,7 +175,9 @@ HTTP/1.1 201 Created
   }
 ```
 
-##### Failed Response
+<details><summary>Failed Responses</summary>
+
+##### Invalid Request Format
 
 ```http
 HTTP/1.1 400 Bad Request
@@ -170,7 +189,7 @@ HTTP/1.1 400 Bad Request
 {"error": "Invalid request. Please confirm request body matches API specification." }
 ```
 
-##### Failed Response - Other
+##### Other
 
 There are no other anticipated failure states. A failure for any other reason is unexpected and will follow the below format.
 
@@ -183,6 +202,8 @@ HTTP/1.1 500 Internal Server Error
 ```js
 {"error": "Internal Server Error"}
 ```
+
+</details>
 
 ---
 
@@ -221,7 +242,9 @@ HTTP/1.1 200 OK
   }
 ```
 
-##### Failed Response
+<details><summary>Failed Responses</summary>
+
+##### Invalid Request Format
 
 ```http
 HTTP/1.1 400 Bad Request
@@ -233,7 +256,7 @@ HTTP/1.1 400 Bad Request
 {"error": "Invalid request. Please confirm request body matches API specification." }
 ```
 
-##### Failed Response - Other
+##### Other
 
 There are no other anticipated failure states. A failure for any other reason is unexpected and will follow the below format.
 
@@ -246,6 +269,8 @@ HTTP/1.1 500 Internal Server Error
 ```js
 {"error": "Internal Server Error"}
 ```
+
+</details>
 
 ---
 
@@ -265,7 +290,9 @@ PATCH /api/v1/foods/1
 HTTP/1.1 204 No Content
 ```
 
-##### Failed Response
+<details><summary>Failed Responses</summary>
+
+##### Unable to find requested food
 
 ```http
 HTTP/1.1 404 Not Found
@@ -277,7 +304,7 @@ HTTP/1.1 404 Not Found
 {"error": "No food found with provided ID." }
 ```
 
-##### Failed Response - Other
+##### Other
 
 There are no other anticipated failure states. A failure for any other reason is unexpected and will follow the below format.
 
@@ -290,6 +317,8 @@ HTTP/1.1 500 Internal Server Error
 ```js
 {"error": "Internal Server Error"}
 ```
+
+</details>
 
 ---
 
@@ -351,7 +380,9 @@ HTTP/1.1 200 OK
 ]
 ```
 
-##### Failed Response
+<details><summary>Failed Responses</summary>
+
+##### Other
 
 There are no anticipated failure states. Any failures are unexpected and will follow the below format.
 
@@ -364,6 +395,8 @@ HTTP/1.1 500 Internal Server Error
 ```js
 {"error": "Internal Server Error"}
 ```
+
+</details>
 
 ---
 
@@ -409,7 +442,9 @@ HTTP/1.1 200 OK
 }
 ```
 
-##### Failed Response - Unable to find requested meal
+<details><summary>Failed Responses</summary>
+
+##### Unable to find requested meal
 
 This error will be returned when the requested ID does not match a Meal in the database.
 
@@ -423,7 +458,7 @@ HTTP/1.1 404 Not Found
 {"error": "No meal found with the provided ID."}
 ```
 
-##### Failed Response - Other
+##### Other
 
 There are no other anticipated failure states. A failure for any other reason is unexpected and will follow the below format.
 
@@ -436,6 +471,8 @@ HTTP/1.1 500 Internal Server Error
 ```js
 {"error": "Internal Server Error"}
 ```
+
+</details>
 
 ---
 
@@ -472,7 +509,9 @@ HTTP/1.1 201 Created
   }
 ```
 
-##### Failed Response
+<details><summary>Failed Responses</summary>
+
+##### Invalid Request Format
 
 ```http
 HTTP/1.1 400 Bad Request
@@ -484,7 +523,7 @@ HTTP/1.1 400 Bad Request
 {"error": "Invalid request. Please confirm request body matches API specification." }
 ```
 
-##### Failed Response - Other
+##### Other
 
 There are no other anticipated failure states. A failure for any other reason is unexpected and will follow the below format.
 
@@ -497,6 +536,8 @@ HTTP/1.1 500 Internal Server Error
 ```js
 {"error": "Internal Server Error"}
 ```
+
+</details>
 
 ---
 
@@ -531,7 +572,9 @@ HTTP/1.1 201 Created
 }
 ```
 
-##### Failed Response - Unable to find requested meal
+<details><summary>Failed Responses</summary>
+
+##### Unable to find requested meal
 
 This error will be returned when the requested ID does not match a Meal in the database.
 
@@ -545,7 +588,7 @@ HTTP/1.1 404 Not Found
 {"error": "No meal found with the provided ID."}
 ```
 
-##### Failed Response - Unable to find requested food
+##### Unable to find requested food
 
 This error will be returned when the requested ID does not match a Food in the database.
 
@@ -559,7 +602,7 @@ HTTP/1.1 404 Not Found
 {"error": "No food found with the provided ID."}
 ```
 
-##### Failed Response - Other
+##### Other
 
 There are no other anticipated failure states. A failure for any other reason is unexpected and will follow the below format.
 
@@ -572,6 +615,8 @@ HTTP/1.1 500 Internal Server Error
 ```js
 {"error": "Internal Server Error"}
 ```
+
+</details>
 
 ---
 
@@ -598,7 +643,9 @@ A message indicating that the food was removed from the meal successfully.
 HTTP/1.1 204 No Content
 ```
 
-##### Failed Response - Unable to find requested meal
+<details><summary>Failed Responses</summary>
+
+##### Unable to find requested meal
 
 This error will be returned when the requested ID does not match a Meal in the database.
 
@@ -612,7 +659,7 @@ HTTP/1.1 404 Not Found
 {"error": "No meal found with the provided ID."}
 ```
 
-##### Failed Response - Unable to find requested food
+##### Unable to find requested food
 
 This error will be returned when the requested ID does not match a Food in the database.
 
@@ -626,7 +673,7 @@ HTTP/1.1 404 Not Found
 {"error": "No food found with the provided ID."}
 ```
 
-##### Failed Response - Other
+##### Other
 
 There are no other anticipated failure states. A failure for any other reason is unexpected and will follow the below format.
 
@@ -639,6 +686,8 @@ HTTP/1.1 500 Internal Server Error
 ```js
 {"error": "Internal Server Error"}
 ```
+
+</details>
 
 ---
 
@@ -664,7 +713,9 @@ A message indicating that the meal was deleted successfully.
 HTTP/1.1 204 No Content
 ```
 
-##### Failed Response - Unable to find requested meal
+<details><summary>Failed Responses</summary>
+
+##### Unable to find requested meal
 
 This error will be returned when the requested ID does not match a Meal in the database.
 
@@ -678,7 +729,7 @@ HTTP/1.1 404 Not Found
 {"error": "No meal found with the provided ID."}
 ```
 
-##### Failed Response - Other
+##### Other
 
 There are no other anticipated failure states. A failure for any other reason is unexpected and will follow the below format.
 
@@ -691,3 +742,5 @@ HTTP/1.1 500 Internal Server Error
 ```js
 {"error": "Internal Server Error"}
 ```
+
+</details>
