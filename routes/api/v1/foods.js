@@ -57,7 +57,7 @@ router.post('/', function(req, res, next) {
 });
 
 // PATCH New Food
-router.patch('/:id', function(req, res,next) {
+router.patch('/:id', function(req, res, next) {
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Accept-Patch', 'application/json');
   if(validFood(req.body.food)) {
@@ -81,6 +81,25 @@ router.patch('/:id', function(req, res,next) {
     res.status(400).send(JSON.stringify({error: 'Invalid request. Please confirm request body matches API specification.' }));
   }
 });
+
+router.delete('/:id', function(req, res, next) {
+  res.setHeader('Content-Type', 'application/json')
+  Food.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+  .then(food => {
+    if(food !== 0) { // if food is found it returns a 1 if not returns a 0
+      res.sendStatus(204)
+    } else {
+      res.status(404).send(JSON.stringify({error: 'No food found with provided ID.'}))
+    }
+  })
+  .catch( error => {
+    res.status(500).send({error: 'Internal Server Error'})
+  })
+})
 
 // Params validation
 function validFood(params) {
