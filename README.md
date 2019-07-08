@@ -15,6 +15,7 @@ This project is a Mod 4 assignment from the Turing School of Software and Design
 |[Show](#foods-show)|[Show](#meals-show)|
 |[Create](#foods-create)|[Create](#meals-create)|
 |[Update](#foods-update)||
+||[Delete](#meals-delete)|
 ||[Add Food](#add-food-to-meal)|
 ||[Remove Food](#remove-food-from-meal)|
 
@@ -547,7 +548,7 @@ DELETE /api/v1/meals/:meal_id/foods/:id
 
 ##### Successful Response
 
-A message indicating that the food was added to the meal successfully.
+A message indicating that the food was removed from the meal successfully.
 
 ```http
 HTTP/1.1 204 No Content
@@ -579,6 +580,58 @@ HTTP/1.1 404 Not Found
 
 ```js
 {"error": "No food found with the provided ID."}
+```
+
+##### Failed Response - Other
+
+There are no other anticipated failure states. A failure for any other reason is unexpected and will follow the below format.
+
+```http
+HTTP/1.1 500 Internal Server Error
+```
+
+###### Body
+
+```js
+{"error": "Internal Server Error"}
+```
+
+---
+
+#### Delete Meal
+
+Given the ID of a meal, delete the meal from the database.
+
+##### Requirements
+
+- Provided meal ID must match a meal that exists in the database.
+
+##### Request
+
+```http
+DELETE /api/v1/meals/:meal_id
+```
+
+##### Successful Response
+
+A message indicating that the meal was deleted successfully.
+
+```http
+HTTP/1.1 204 No Content
+```
+
+##### Failed Response - Unable to find requested meal
+
+This error will be returned when the requested ID does not match a Meal in the database.
+
+```http
+HTTP/1.1 404 Not Found
+```
+
+###### Body
+
+```js
+{"error": "No meal found with the provided ID."}
 ```
 
 ##### Failed Response - Other
