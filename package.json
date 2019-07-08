@@ -23,7 +23,7 @@
     "start": "node bin/www",
     "test": "jest --runInBand --config ./config/jest.config.js",
     "travis-test": "jest --runInBand --config ./config/jest.config.js --detectOpenHandles --forceExit",
-    "debug-test": "NODE_ENV=debug-test node --inspect-brk node_modules/.bin/jest --runInBand"
+    "debug-test": "NODE_ENV=debug-test node --inspect-brk node_modules/.bin/jest --runInBand --config ./config/jest.config.js"
   },
   "repository": {
     "type": "git",

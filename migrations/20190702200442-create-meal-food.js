@@ -13,14 +13,16 @@ module.exports = {
         references: {
           model: 'Meals',
           key: 'id'
-        }
+        },
+        onDelete: 'cascade'
       },
       FoodId: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Food',
           key: 'id'
-        }
+        },
+        onDelete: 'cascade'
       },
       createdAt: {
         allowNull: false,
