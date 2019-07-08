@@ -106,11 +106,13 @@ meals.post('/', (req, res, next) => {
 /* Delete Meal */
 meals.delete('/:id', (req, res, next) => {
   res.setHeader("Content-Type", "application/json")
-  Meal.findByPk(req.params.id).then(meal => {
-    if(meal){
-      return meal.destroy().then(result => {
-        res.status(204).send()
-      })
+  Meal.destroy({
+    where: {
+      id: req.params.id
+    }
+  }).then(meal => {
+    if(meal !== 0){
+      res.status(204).send()
     } else {
       res.status(404).send({error: "No meal found with the provided ID."})
     }
