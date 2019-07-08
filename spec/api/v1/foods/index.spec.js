@@ -9,6 +9,10 @@ describe('api', () => {
     DB.drop()
   })
 
+  beforeEach(() => {
+    console.log('foods/index.spec.js', process.pid)
+  })
+
   describe('Food Happy Path', () => {
     beforeEach(() => {
       DB.migrate()

@@ -10,6 +10,10 @@ describe('Meals index', () => {
     DB.drop()
   })
 
+  beforeEach(() => {
+    console.log('meals/index.spec.js', process.pid)
+  })
+
   describe('Successful request', () => {
     beforeEach(() => {
       DB.migrate()
