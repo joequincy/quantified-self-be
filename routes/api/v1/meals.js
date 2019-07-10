@@ -1,6 +1,7 @@
 var meals = require('express').Router();
 var cors = require('cors')
 var models = require('../../../models');
+var objectSkeletonMatches = require('../../../helpers').objectSkeletonMatches
 const Meal = models.Meal
 const Food = models.Food
 
@@ -126,17 +127,6 @@ module.exports = meals
 
 
 function isMeal(obj){
-  if(obj.hasOwnProperty("meal")){
-    for(var key in obj.meal){
-      if(key != "name"){
-        return false
-      }
-    }
-    if(!obj.meal.hasOwnProperty("name")){
-      return false
-    }
-  } else {
-    return false
-  }
-  return true
+  let expected = {meal: {name: null}}
+  return objectSkeletonMatches(obj, expected)
 }
