@@ -1,10 +1,11 @@
 var meals = require('express').Router();
+var cors = require('cors')
 var models = require('../../../models');
 const Meal = models.Meal
 const Food = models.Food
 
 /* Meals Index */
-meals.get('/', (req, res, next) => {
+meals.get('/', cors(), (req, res, next) => {
   res.setHeader("Content-Type", "application/json")
   Meal.findAll({
     attributes: ["id", "name"],
@@ -23,7 +24,7 @@ meals.get('/', (req, res, next) => {
 })
 
 /* Meal Show */
-meals.get('/:id', (req, res, next) => {
+meals.get('/:id', cors(), (req, res, next) => {
   res.setHeader("Content-Type", "application/json")
   Meal.findByPk(req.params.id, {
     attributes: ["id", "name"],
@@ -46,7 +47,7 @@ meals.get('/:id', (req, res, next) => {
 })
 
 /* Add Food to Meal */
-meals.post('/:mealId/foods/:foodId', (req, res, next) => {
+meals.post('/:mealId/foods/:foodId', cors(), (req, res, next) => {
   res.setHeader("Content-Type", "application/json")
   Meal.findByPk(req.params.mealId).then(meal => {
     if(meal){
@@ -68,7 +69,7 @@ meals.post('/:mealId/foods/:foodId', (req, res, next) => {
 })
 
 /* Remove Food from Meal */
-meals.delete('/:mealId/foods/:foodId', (req, res, next) => {
+meals.delete('/:mealId/foods/:foodId', cors(), (req, res, next) => {
   res.setHeader("Content-Type", "application/json")
   Meal.findByPk(req.params.mealId).then(meal => {
     if(meal){
@@ -90,11 +91,11 @@ meals.delete('/:mealId/foods/:foodId', (req, res, next) => {
 })
 
 /* Create Meal */
-meals.post('/', (req, res, next) => {
+meals.post('/', cors(), (req, res, next) => {
   res.setHeader("Content-Type", "application/json")
   if(isMeal(req.body)){
     Meal.create({name: req.body.meal.name}).then(meal => {
-      res.status(201).send(meal)
+      res.status(201).send({id: meal.id, name: meal.name})
     }).catch(error => {
       res.status(500).send({error: "Internal Server Error"})
     })
@@ -104,7 +105,7 @@ meals.post('/', (req, res, next) => {
 })
 
 /* Delete Meal */
-meals.delete('/:id', (req, res, next) => {
+meals.delete('/:id', cors(), (req, res, next) => {
   res.setHeader("Content-Type", "application/json")
   Meal.destroy({
     where: {
