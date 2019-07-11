@@ -16,7 +16,7 @@ To start the API server, run `npm start`, then access endpoints as described bel
 
 ### Learning Goals
 - Coming from a background learning Rails development, build a NodeJS application utilizing the same principles.
-- Create an API using the Express framework, given specified endpoints and response formats (see: [Issues](https://github.com/joequincy/quantified-self-fe/issues)).
+- Create an API using the Express framework, given specified endpoints and response formats (see: [Issues](https://github.com/joequincy/quantified-self-be/issues)).
 - As a separate app, create a single-page webapp for the front-end which will interact with the server via the API without page changes or reloads (see: [quantified-self-fe](https://github.com/joequincy/quantified-self-fe)).
 
 ### Schema
