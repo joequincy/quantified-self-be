@@ -1,8 +1,9 @@
 # Quantified Self [![Build Status](https://travis-ci.com/joequincy/quantified-self-be.svg?branch=dev)](https://travis-ci.com/joequincy/quantified-self-be)
+Authored by: [Deonte Cooper](https://github.com/djc00p) and [Jon Peterson](https://github.com/joequincy)
 
 A calorie tracker using JavaScript, built on NodeJS with the [Express](https://expressjs.com/) framework. [Sequelize](http://docs.sequelizejs.com/) is used for an ORM.
 
-This project is a Mod 4 assignment from the Turing School of Software and Design. [Assignment details are available](https://github.com/turingschool/backend-curriculum-site/blob/66a39813572f453700ab944948ecf698b0b75d42/module4/projects/quantified_self/qs_server_side.md) in the [@turingschool](https://github.com/turingschool) curriculum repository.
+This project is a Mod 4 paired assignment from the Turing School of Software and Design. [Assignment details are available](https://github.com/turingschool/backend-curriculum-site/blob/66a39813572f453700ab944948ecf698b0b75d42/module4/projects/quantified_self/qs_server_side.md) in the [@turingschool](https://github.com/turingschool) curriculum repository.
 
 ### Setup
 From the project root, run:
@@ -14,8 +15,13 @@ From the project root, run:
 To start the API server, run `npm start`, then access endpoints as described below. Default port on `localhost` is `3000`.
 
 ### Learning Goals
-- Create an Express API given specified endpoints and response formats.
-- Create a single-page web for the front-end which will interact with the server via the API without page changes or reloads.
+- Coming from a background learning Rails development, build a NodeJS application utilizing the same principles.
+- Create an API using the Express framework, given specified endpoints and response formats (see: [Issues](https://github.com/joequincy/quantified-self-fe/issues)).
+- As a separate app, create a single-page webapp for the front-end which will interact with the server via the API without page changes or reloads (see: [quantified-self-fe](https://github.com/joequincy/quantified-self-fe)).
+
+### Schema
+Because this project utilizes a very simple data set, the database schema is likewise simple.
+[![Database Schema Diagram](schema.png)](https://dbdiagram.io/d/5d277b1cced98361d6dc9347)
 
 ### Endpoints
 |         Foods         |         Meals                       |
