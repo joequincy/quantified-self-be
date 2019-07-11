@@ -1,9 +1,10 @@
 var express = require('express');
+var cors = require('cors');
 var router = express.Router();
 var Food = require('../../../models').Food;
 
 // GET all Foods
-router.get('/', function(req, res, next) {
+router.get('/', cors(), function(req, res, next) {
   res.setHeader('Content-Type', 'application/json');
   Food.findAll({
     attributes: ['id', 'name', 'calories']
@@ -17,7 +18,7 @@ router.get('/', function(req, res, next) {
 });
 
 // GET single Food
-router.get('/:id', function(req, res, next) {
+router.get('/:id', cors(), function(req, res, next) {
   res.setHeader('Content-Type', 'application/json');
   Food.findAll({
     attributes: ['id', 'name', 'calories'],
@@ -38,7 +39,7 @@ router.get('/:id', function(req, res, next) {
 })
 
 // POST New Food
-router.post('/', function(req, res, next) {
+router.post('/', cors(), function(req, res, next) {
   res.setHeader('Content-Type', 'application/json');
   if(validFood(req.body.food)) {
     Food.create({
@@ -57,7 +58,7 @@ router.post('/', function(req, res, next) {
 });
 
 // PATCH New Food
-router.patch('/:id', function(req, res, next) {
+router.patch('/:id', cors(), function(req, res, next) {
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Accept-Patch', 'application/json');
   if(validFood(req.body.food)) {
@@ -82,7 +83,7 @@ router.patch('/:id', function(req, res, next) {
   }
 });
 
-router.delete('/:id', function(req, res, next) {
+router.delete('/:id', cors(), function(req, res, next) {
   res.setHeader('Content-Type', 'application/json')
   Food.destroy({
     where: {
